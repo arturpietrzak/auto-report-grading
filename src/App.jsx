@@ -15,17 +15,6 @@ const App = () => {
   const { saveReports, loadReports } = useLocalStorage();
   const [permission, setPermission] = useState(Notification.permission);
 
-  const requestPermission = async () => {
-    try {
-      const result = await Notification.requestPermission();
-      setPermission(result);
-      return result;
-    } catch (error) {
-      console.error("Error requesting notification permission:", error);
-      return "denied";
-    }
-  };
-
   useEffect(() => {
     let loadedReports = loadReports();
     if (!loadedReports || loadedReports.length === 0) {
@@ -33,10 +22,6 @@ const App = () => {
       loadedReports = initialReports;
     }
     setReports(loadedReports);
-
-    if (!Notification.permission) {
-      requestPermission();
-    }
   }, []);
 
   useEffect(() => {
