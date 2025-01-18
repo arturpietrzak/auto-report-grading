@@ -13,7 +13,6 @@ const App = () => {
   const [reports, setReports] = useState([]);
   const [selectedReport, setSelectedReport] = useState({});
   const { saveReports, loadReports } = useLocalStorage();
-  const [permission, setPermission] = useState(Notification.permission);
 
   useEffect(() => {
     let loadedReports = loadReports();
@@ -142,7 +141,7 @@ const App = () => {
                 )
               );
 
-              if (permission) {
+              if ("Notification" in window && Notification.permission) {
                 new Notification("Test Notification", {
                   body: `Report has been successfully graded!`,
                   icon: "32.png",
