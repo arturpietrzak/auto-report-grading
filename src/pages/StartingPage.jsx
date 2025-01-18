@@ -1,8 +1,8 @@
 import React from "react";
-import { FileText, Upload } from "lucide-react";
+import { FileText, Upload, Trash } from "lucide-react";
 
 // Starting Page Component
-const StartingPage = ({ onNavigate, reports }) => {
+const StartingPage = ({ onNavigate, reports, onDelete }) => {
   return (
     <div className="p-6">
       <div className="flex justify-between items-center mb-6">
@@ -19,9 +19,15 @@ const StartingPage = ({ onNavigate, reports }) => {
         {reports.map((report) => (
           <button
             key={report.id}
-            onClick={() => onNavigate("details", report.id)}
-            className="border rounded-lg p-4 hover:bg-gray-50 transition-colors flex justify-between items-center w-full text-left"
-            disabled={report.status !== "Checked"}
+            onClick={() => {
+              if (report.status === "Checked") {
+                onNavigate("details", report.id);
+              }
+            }}
+            className={`${
+              report.status !== "Checked" &&
+              "cursor-default bg-yellow-50 hover:bg-yellow-50"
+            } bg-white border rounded-lg p-4 hover:bg-gray-50 transition-colors flex justify-between items-center w-full text-left`}
           >
             <div className="flex items-center gap-3">
               <FileText className="text-gray-500" />
@@ -41,6 +47,14 @@ const StartingPage = ({ onNavigate, reports }) => {
                 {report.status}
               </span>
               <span className="text-sm text-gray-500">{report.date}</span>
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onDelete(report.id);
+                }}
+              >
+                <Trash className="text-gray-500 z-10" strokeWidth={1} />
+              </button>
             </div>
           </button>
         ))}

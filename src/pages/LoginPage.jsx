@@ -4,11 +4,14 @@ const LoginPage = ({ onNavigate }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [isIncorrect, setIsIncorrect] = useState(false);
+  console.log(Notification.permission);
 
   const requestPermission = async () => {
     try {
-      Notification.requestPermission().then(function (permission) {
-        console.log("permiss", permission);
+      let permission = null;
+      console.log(Notification.permission);
+      Notification.requestPermission().then((p) => {
+        permission = p;
       });
     } catch (error) {
       console.error("Error requesting notification permission:", error);
@@ -19,7 +22,7 @@ const LoginPage = ({ onNavigate }) => {
     e.preventDefault();
     setIsIncorrect(false);
 
-    if (!Notification.permission) {
+    if (Notification.permission !== "granted") {
       requestPermission();
     }
 

@@ -47,7 +47,13 @@ const App = () => {
       </nav>
       {currentPage === "login" && <LoginPage onNavigate={handleNavigate} />}
       {currentPage === "home" && (
-        <StartingPage onNavigate={handleNavigate} reports={reports} />
+        <StartingPage
+          onNavigate={handleNavigate}
+          reports={reports}
+          onDelete={(id) => {
+            setReports((reports) => reports.filter((r) => r.id !== id));
+          }}
+        />
       )}
       {currentPage === "upload" && (
         <UploadPage
