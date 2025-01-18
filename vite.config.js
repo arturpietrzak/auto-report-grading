@@ -3,6 +3,12 @@ import react from "@vitejs/plugin-react";
 import { VitePWA } from "vite-plugin-pwa";
 
 const manifest = {
+  id: "SRLLM",
+  launch_handler: {
+    client_mode: "auto",
+  },
+  categories: ["education", "productivity"],
+  dir: "ltr",
   short_name: "SRLLM",
   name: "StudentReportLLM",
   description:
@@ -47,9 +53,23 @@ const manifest = {
   display: "standalone",
   theme_color: "#64176b",
   background_color: "#f9fafb",
+  orientation: "portrait-primary",
+  prefer_related_applications: false,
 };
 
 // https://vite.dev/config/
 export default defineConfig({
-  plugins: [react(), VitePWA({ manifest: manifest })],
+  plugins: [
+    react(),
+    VitePWA({
+      registerType: "autoUpdate",
+      injectRegister: "auto",
+      workbox: {
+        cleanupOutdatedCaches: false,
+        clientsClaim: true,
+        skipWaiting: true,
+      },
+      manifest: manifest,
+    }),
+  ],
 });

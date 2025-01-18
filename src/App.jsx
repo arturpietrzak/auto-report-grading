@@ -13,6 +13,18 @@ const App = () => {
   const [reports, setReports] = useState([]);
   const [selectedReport, setSelectedReport] = useState({});
   const { saveReports, loadReports } = useLocalStorage();
+  const [permission, setPermission] = useState(Notification.permission);
+
+  const requestPermission = async () => {
+    try {
+      const result = await Notification.requestPermission();
+      setPermission(result);
+      return result;
+    } catch (error) {
+      console.error("Error requesting notification permission:", error);
+      return "denied";
+    }
+  };
 
   useEffect(() => {
     let loadedReports = loadReports();
@@ -21,6 +33,10 @@ const App = () => {
       loadedReports = initialReports;
     }
     setReports(loadedReports);
+
+    if (!Notification.permission) {
+      requestPermission();
+    }
   }, []);
 
   useEffect(() => {
@@ -86,7 +102,7 @@ const App = () => {
             ]);
 
             const google = createGoogleGenerativeAI({
-              apiKey: import.meta.env.GOOGLE_API_KEY,
+              apiKey: import.meta.env.VITE_GOOGLE_API_KEY,
             });
 
             generateText({
@@ -123,7 +139,6 @@ const App = () => {
             }).then(({ text }) => {
               const results = JSON.parse(text.replace(/^```json|```$/g, ""));
 
-              // Update pending
               setReports((prevData) =>
                 prevData.map((item) =>
                   item.id === id
@@ -135,6 +150,14 @@ const App = () => {
                     : item
                 )
               );
+
+              if (permission) {
+                new Notification("Test Notification", {
+                  body: `Report has been successfully graded!`,
+                  icon: "32.png",
+                  badge: "32.png",
+                });
+              }
             });
           }}
         />
