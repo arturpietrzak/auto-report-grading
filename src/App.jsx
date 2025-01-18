@@ -161,16 +161,18 @@ const App = () => {
 
                 const showNotification = (body) => {
                   const title = "SRLLM";
-                  const payload = {
-                    body: `Report has been successfully graded!`,
-                    icon: "32.png",
-                    badge: "32.png",
-                  };
-
                   if ("showNotification" in registration) {
-                    registration.showNotification(title, payload);
+                    registration.showNotification(title, {
+                      body: `Report has been successfully graded!`,
+                      icon: "32.png",
+                      badge: "32.png",
+                    });
                   } else {
-                    new Notification(title, payload);
+                    new Notification(title, {
+                      body: `Report has been successfully graded.`,
+                      icon: "32.png",
+                      badge: "32.png",
+                    });
                   }
                 };
 
