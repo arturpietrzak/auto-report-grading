@@ -141,12 +141,40 @@ const App = () => {
                 )
               );
 
-              if ("Notification" in window && Notification.permission) {
-                new Notification("Test Notification", {
-                  body: `Report has been successfully graded!`,
-                  icon: "32.png",
-                  badge: "32.png",
-                });
+              if (
+                "Notification" in window &&
+                Notification.permission === "granted"
+              ) {
+                const sendNotification = async () => {
+                  if (Notification.permission === "granted") {
+                    showNotification(notification.value);
+                  } else {
+                    if (Notification.permission !== "denied") {
+                      const permission = await Notification.requestPermission();
+
+                      if (permission === "granted") {
+                        showNotification(notification.value);
+                      }
+                    }
+                  }
+                };
+
+                const showNotification = (body) => {
+                  const title = "SRLLM";
+                  const payload = {
+                    body: `Report has been successfully graded!`,
+                    icon: "32.png",
+                    badge: "32.png",
+                  };
+
+                  if ("showNotification" in registration) {
+                    registration.showNotification(title, payload);
+                  } else {
+                    new Notification(title, payload);
+                  }
+                };
+
+                sendNotification();
               }
             });
           }}
