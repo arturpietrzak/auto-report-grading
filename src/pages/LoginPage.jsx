@@ -7,12 +7,11 @@ const LoginPage = ({ onNavigate }) => {
 
   const requestPermission = async () => {
     try {
-      const result = await Notification.requestPermission();
-      setPermission(result);
-      return result;
+      Notification.requestPermission().then(function (permission) {
+        console.log("permiss", permission);
+      });
     } catch (error) {
       console.error("Error requesting notification permission:", error);
-      return "denied";
     }
   };
 
