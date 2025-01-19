@@ -99,7 +99,7 @@ const App = () => {
             });
 
             generateText({
-              model: google("gemini-2.0-flash-exp"),
+              model: google("gemini-1.5-pro-latest"),
               prompt: `
             You are an expert and strict evaluator for academic writing in computer science. Your task is to grade a student's paragraph based on specific criteria. Please carefully assess the paragraph and provide scores for the following metrics, each on a scale from 0 to 5 points:
             - correctness: Evaluate whether the information presented is factually accurate and consistent with established computer science principles.
