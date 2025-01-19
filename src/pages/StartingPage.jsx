@@ -32,7 +32,7 @@ const StartingPage = ({ onNavigate, reports, onDelete }) => {
             <div className="flex items-center gap-3">
               <FileText className="text-gray-500" />
               <div>
-                <h2 className="font-semibold">{report.name}</h2>
+                <h2 className="font-semibold text-ellipsis">{report.name}</h2>
                 <p className="text-sm text-gray-500">{report.filename}</p>
               </div>
             </div>
