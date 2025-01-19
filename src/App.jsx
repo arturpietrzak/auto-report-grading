@@ -25,7 +25,7 @@ const App = () => {
 
   useEffect(() => {
     saveReports(reports);
-    if (navigator && reports.length) {
+    if (navigator && reports.length && navigator.setAppBadge) {
       navigator.setAppBadge(reports.length);
     }
   }, [reports]);
