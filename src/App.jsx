@@ -43,7 +43,7 @@ const App = () => {
   return (
     <div className="min-h-screen bg-gray-50">
       <nav className="bg-white border-b px-6 py-4">
-        <h1 className="text-xl font-bold text-[#64176b]">StudentReportLLM</h1>
+        <h1 className="text-xl font-bold text-[#ffffff]">StudentReportLLM</h1>
       </nav>
       {currentPage === "login" && <LoginPage onNavigate={handleNavigate} />}
       {currentPage === "home" && (
@@ -147,6 +147,13 @@ const App = () => {
                   body: `Report has been successfully graded!`,
                   icon: "32.png",
                   badge: "32.png",
+                });
+                navigator.serviceWorker.getRegistration().then((r) => {
+                  registration.showNotification("Test Notification", {
+                    body: `Report has been successfully graded!`,
+                    icon: "32.png",
+                    badge: "32.png",
+                  });
                 });
               }
             });
