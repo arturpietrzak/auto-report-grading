@@ -36,6 +36,8 @@ const LoginPage = ({ onNavigate }) => {
             onChange={(e) => setUsername(e.target.value)}
             className="w-full px-3 py-2 border rounded-lg"
             required
+            autocorrect="off"
+            autocapitalize="off"
           />
         </div>
         <div>

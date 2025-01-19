@@ -25,6 +25,7 @@ const App = () => {
 
   useEffect(() => {
     saveReports(reports);
+    navigator.setAppBadge(reports.length);
   }, [reports]);
 
   function getRandomID() {
