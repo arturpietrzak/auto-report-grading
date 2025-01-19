@@ -32,11 +32,11 @@ const StartingPage = ({ onNavigate, reports, onDelete }) => {
             <div className="flex items-center gap-3">
               <FileText className="text-gray-500" />
               <div>
-                <h2 className="font-semibold text-ellipsis">{report.name}</h2>
+                <h2 className="font-semibold">{report.name}</h2>
                 <p className="text-sm text-gray-500">{report.filename}</p>
               </div>
             </div>
-            <div className="flex items-center gap-4">
+            <div className="flex flex-col items-end gap-4 sm:flex-row sm:items-center">
               <span
                 className={`px-3 py-1 rounded-full text-sm ${
                   report.status === "Checked"
